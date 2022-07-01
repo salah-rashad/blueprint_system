@@ -1,0 +1,21 @@
+name: blueprint_system
+description: A flutter library that creates blueprint widgets with nodes (child widgets) that may be added to them. These nodes can be moved, resized, and modified.
+version: 0.1.0
+homepage: https://github.com/salah-rashad
+
+environment:
+  sdk: ">=2.17.3 <3.0.0"
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  get: ^4.6.5
+  uuid: ^3.0.6
+  vector_math: ^2.1.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
