@@ -1,15 +1,8 @@
 # Blueprint System 🗺️
 
-A flutter library that creates blueprint widgets with <b>nodes</b> (child widgets) that may be added to them. These nodes can be <b>moved</b>, <b>resized</b>, and <b>modified</b>. ⚡
+A flutter library that creates blueprint widgets with <b>nodes</b> (child widgets) that may be added to them. These nodes can be <b>moved</b>, <b>resized</b>, and <b>modified</b>. ⚡<br/>
 
-<!-- ## Features
-
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package. -->
+[![pub package](https://img.shields.io/pub/v/blueprint_system.svg?label=pub&color=blue)](https://pub.dev/packages/blueprint_system)
 
 ## Usage
 
@@ -33,15 +26,30 @@ Widget build(BuildContext context) {
 3. Add your first node 🛹
 
 ```dart
-NodeController node = NodeController(
-    initPosition: const Offset(30, 10),     // initial position
-    initSize: const Size(200, 50),          // initial size
+DraggableNode node = DraggableNode(
+    initPosition: const Offset(50, 100),    // optional, default: (100, 100)
+    initSize: const Size(200, 100),         // optional, default: (100, 100)
+    child: (c) => Container(
+        color: Colors.red,
+        child: Text(c.position.toString()),
+    ),
 );
 
 controller.addNode(node);
+// or
+controller.addNodes([node1, node2, ...]);
 ```
+
+See: [Example](https://pub.dev/packages/blueprint_system/example)
+
+## //TODO:
+
+- [ ] Blueprint Theme
+- [ ] Blueprint rulers
+- [ ] Blueprint Export to JSON, YAML, XML, etc.
+- [ ] Floating Node ✨
 
 ## Additional information
 
-This package is still under development and I will do my best to make it more stable.
-PRs are always welcome! 🦄
+This package is still under development and I will do my best to make it more stable.<br/>
+_PRs are always welcome! 🦄

@@ -1,6 +1,8 @@
 import 'package:blueprint_system/blueprint.dart';
 import 'package:blueprint_system/blueprint_controller.dart';
-import 'package:blueprint_system/node/node_controller.dart';
+import 'package:blueprint_system/widgets/draggable_node/draggable_node.dart';
+import 'package:blueprint_system/widgets/fixed_node/fixed_node.dart';
+import 'package:blueprint_system/widgets/node/node_controller.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -48,14 +50,16 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     controller.addNodes([
-      NodeController(),
-      NodeController(
-        initPosition: const Offset(500, 10),
-        initSize: const Size(100, 100),
+      FixedNode(child: node),
+      DraggableNode(
+        initPosition: const Offset(1200, 1200),
+        initSize: const Size(200, 100),
+        child: node,
       ),
-      NodeController(
+      DraggableNode(
         initPosition: const Offset(50, 300),
         initSize: const Size(100, 200),
+        child: node,
       ),
     ]);
     super.initState();
@@ -86,6 +90,15 @@ class _MyHomePageState extends State<MyHomePage> {
           // SizedBox(width: MediaQuery.of(context).size.width * 0.3),
         ],
       ),
+    );
+  }
+
+  Widget node(NodeController controller) {
+    var pos = controller.position;
+    return Container(
+      color: Colors.red,
+      child:
+          Text("[${pos.dx.toStringAsFixed(2)}, ${pos.dy.toStringAsFixed(2)}]"),
     );
   }
 }

@@ -1,13 +1,12 @@
 import 'dart:math';
 
 import 'package:blueprint_system/src/extensions.dart';
+import 'package:blueprint_system/widgets/node/node.dart';
+import 'package:blueprint_system/widgets/node/node_controller.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart' hide Node;
 import 'package:uuid/uuid.dart';
 import 'package:vector_math/vector_math_64.dart' show Matrix4, Vector3;
-
-import 'node/node.dart';
-import 'node/node_controller.dart';
 
 class BlueprintController extends GetxController
     with GetTickerProviderStateMixin {
@@ -17,7 +16,6 @@ class BlueprintController extends GetxController
 
   bool snapToGrid = false;
 
-  double scale = 1;
   Rxn<NodeController> lastDraggedNode = Rxn();
   // BoxConstraints boxConstraints = const BoxConstraints();
 
@@ -32,10 +30,17 @@ class BlueprintController extends GetxController
   List<Node> get nodes => _nodes;
 
   //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  final RxDouble _scale = RxDouble(1);
+  double get scale => _scale.value;
+  set scale(double value) => _scale.value = value;
 
   final Rx<Size> _size = Rx<Size>(Size.zero);
   Size get size => _size.value;
   set size(Size value) => _size.value = value;
+
+  final Rx<Offset> _pointerPosition = Rx<Offset>(Offset.zero);
+  Offset get pointerPosition => _pointerPosition.value;
+  set pointerPosition(Offset value) => _pointerPosition.value = value;
 
   final RxBool _showGrid = RxBool(true);
   bool get showGrid => _showGrid.value;
@@ -78,23 +83,18 @@ class BlueprintController extends GetxController
   void onReady() {
     super.onReady();
     size = widgetRect.size;
+    updateCanvasSize();
   }
 
   //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  String generateUniqueId() {
-    return const Uuid().v1();
-  }
-
-  void addNode([NodeController? controller]) {
-    controller ??= NodeController();
-    controller.blueprint = this;
-
-    var node = Node(generateUniqueId(), controller);
+  void addNode(Node node) {
+    node.id = const Uuid().v4();
+    node.controller.blueprint = this;
     _nodes.add(node);
   }
 
-  void addNodes(List<NodeController> nodes) {
+  void addNodes(List<Node> nodes) {
     for (var node in nodes) {
       addNode(node);
     }
@@ -105,9 +105,9 @@ class BlueprintController extends GetxController
     double h = 0;
 
     for (var node in _nodes) {
-      var ctrl = Get.find<NodeController>(tag: node.id);
+      var ctrl = node.controller;
 
-      // get top right edge position of this node
+      // get bottom right edge position of this node
       Offset bottomRightEdge =
           ctrl.position + Offset(ctrl.size.width, ctrl.size.height);
 
@@ -123,7 +123,7 @@ class BlueprintController extends GetxController
 
   void animateTo(NodeController node) {
     lastDraggedNode.value = node;
-    // var offset = transformationController.toScene(position);
+
     Offset nodePos = node.position;
     Size nodeSize = node.size;
 
@@ -144,13 +144,8 @@ class BlueprintController extends GetxController
     );
 
     scrollEnd.setTranslation(translation);
-    // ..setFromTranslationRotationScale(
-    //   translation,
-    //   Quaternion.identity(),
-    //   _scale,
-    // );
 
-    _animController.reset();
+    _stopAnim();
     _anim = Matrix4Tween(
       begin: transformationController.value,
       end: scrollEnd,
@@ -158,25 +153,25 @@ class BlueprintController extends GetxController
       parent: _animController,
       curve: Curves.easeOutCubic,
     ));
-    _anim!.addListener(_onAnimateReset);
+    _anim!.addListener(_onAnimate);
     _animController.forward();
   }
 
   //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  void _onAnimateReset() {
+  void _onAnimate() {
     transformationController.value = _anim!.value;
     if (!_animController.isAnimating) {
-      _anim!.removeListener(_onAnimateReset);
+      _anim!.removeListener(_onAnimate);
       _anim = null;
       _animController.reset();
     }
   }
 
 // Stop a running reset to home transform animation.
-  void _animateResetStop() {
+  void _stopAnim() {
     _animController.stop();
-    _anim?.removeListener(_onAnimateReset);
+    _anim?.removeListener(_onAnimate);
     _anim = null;
     _animController.reset();
   }
@@ -185,7 +180,7 @@ class BlueprintController extends GetxController
     // If the user tries to cause a transformation while the reset animation is
     // running, cancel the reset animation.
     if (_animController.status == AnimationStatus.forward) {
-      _animateResetStop();
+      _stopAnim();
     }
   }
 }

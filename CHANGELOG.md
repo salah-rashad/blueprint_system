@@ -1,3 +1,7 @@
-## 0.0.1
+## 0.0.2
 
-* initial release
+* Improved `Node` widget.
+* Improved `NodeController`.
+* `Node` & `NodeController` are now abstract.
+* Added `FixedNode` (non-draggable) widget.
+* Added `DraggableNode` widget.
