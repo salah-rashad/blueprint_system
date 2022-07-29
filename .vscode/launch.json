@@ -5,18 +5,18 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "blueprint_widget",
+            "name": "blueprint_system",
             "request": "launch",
             "type": "dart"
         },
         {
-            "name": "blueprint_widget (profile mode)",
+            "name": "blueprint_system (profile mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
         },
         {
-            "name": "blueprint_widget (release mode)",
+            "name": "blueprint_system (release mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"

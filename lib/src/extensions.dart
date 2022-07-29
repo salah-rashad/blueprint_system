@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 // A useful extension for getting absolute coordinates of a widget
@@ -16,17 +18,38 @@ extension GlobalKeyExtension on GlobalKey {
 }
 
 extension IntExtensions on num {
-  num roundTens() {
+  num roundBy(num v) {
     num result = floor();
-    num lastNum = result % 10;
+    num lastNumbers = result % v;
 
-    if (lastNum >= 5) {
-      num remain = 10 - lastNum;
+    if (lastNumbers >= v/2) {
+      num remain = v - lastNumbers;
       result += remain;
     } else {
-      result -= lastNum;
+      result -= lastNumbers;
     }
 
     return result;
+  }
+
+  // num roundBy(num v, [num start = 0]) {
+  //   num result = floor();
+  //   num lastNum = result % v;
+
+  //   if (lastNum > start) {
+  //     result = ((this - start) ~/ v) * v + v;
+  //   }
+
+  //   return result;
+  // }
+
+  bool get isInteger => this is int || this == roundToDouble();
+}
+
+extension ColorExtensions on Color {
+  static Color random() {
+    int length = Colors.primaries.length;
+    int rnd = Random().nextInt(length);
+    return Colors.primaries[rnd];
   }
 }

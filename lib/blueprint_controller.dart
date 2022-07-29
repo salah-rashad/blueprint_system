@@ -1,6 +1,8 @@
 import 'dart:math';
 
+import 'package:blueprint_system/src/event.dart';
 import 'package:blueprint_system/src/extensions.dart';
+import 'package:blueprint_system/widgets/floating_node/floating_node_controller.dart';
 import 'package:blueprint_system/widgets/node/node.dart';
 import 'package:blueprint_system/widgets/node/node_controller.dart';
 import 'package:flutter/widgets.dart';
@@ -8,15 +10,31 @@ import 'package:get/get.dart' hide Node;
 import 'package:uuid/uuid.dart';
 import 'package:vector_math/vector_math_64.dart' show Matrix4, Vector3;
 
-class BlueprintController extends GetxController
+class BlueprintController extends FullLifeCycleController
     with GetTickerProviderStateMixin {
-  BlueprintController();
+  BlueprintController._(this.id);
+
+  Size minSize = Size.zero;
+  Size maxSize = Size.infinite;
+  bool followNewAddedNodes = true;
+
+  final String id;
+  static BlueprintController get instance {
+    var id = " // ${const Uuid().v4()}";
+    BlueprintController newInstance =
+        Get.put(BlueprintController._(id), tag: id);
+    return newInstance;
+  }
+
+  Event<ScaleStartDetails> onInteractionStart = Event();
+  Event<ScaleEndDetails> onInteractionEnd = Event();
+  Event<ScaleUpdateDetails> onInteractionUpdate = Event();
 
   //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   bool snapToGrid = false;
 
-  Rxn<NodeController> lastDraggedNode = Rxn();
+  Rxn<NodeController> focusedNode = Rxn();
   // BoxConstraints boxConstraints = const BoxConstraints();
 
   final GlobalKey _widgetKey = GlobalKey();
@@ -26,27 +44,24 @@ class BlueprintController extends GetxController
   GlobalKey get stackKey => _stackKey;
 
   final RxList<Node> _nodes = RxList.empty(growable: true);
-
   List<Node> get nodes => _nodes;
+
+  Vector3 get translation => transformationController.value.getTranslation();
+  Offset get cameraPosition => Offset(translation.x.abs(), translation.y.abs());
 
   //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   final RxDouble _scale = RxDouble(1);
   double get scale => _scale.value;
-  set scale(double value) => _scale.value = value;
 
   final Rx<Size> _size = Rx<Size>(Size.zero);
   Size get size => _size.value;
   set size(Size value) => _size.value = value;
 
-  final Rx<Offset> _pointerPosition = Rx<Offset>(Offset.zero);
-  Offset get pointerPosition => _pointerPosition.value;
-  set pointerPosition(Offset value) => _pointerPosition.value = value;
-
   final RxBool _showGrid = RxBool(true);
   bool get showGrid => _showGrid.value;
   set showGrid(bool value) => _showGrid.value = value;
 
-  Rect get widgetRect => widgetKey.globalPaintBounds!;
+  Rect? get widgetRect => widgetKey.globalPaintBounds;
   Rect? get getRect => stackKey.globalPaintBounds;
 
   //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -59,7 +74,7 @@ class BlueprintController extends GetxController
   //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   void _scaleListener() {
-    scale = transformationController.value.getMaxScaleOnAxis();
+    _scale.value = transformationController.value.getMaxScaleOnAxis();
   }
 
   @override
@@ -73,29 +88,51 @@ class BlueprintController extends GetxController
   }
 
   @override
+  void onReady() {
+    super.onReady();
+    size = widgetRect!.size;
+
+    transformationController.addListener(onInteractionUpdate.invoke);
+    WidgetsBinding.instance.addObserver(this);
+    updateCanvasSize();
+  }
+
+  @override
   void onClose() {
     _animController.dispose();
     transformationController.removeListener(_scaleListener);
+    WidgetsBinding.instance.removeObserver(this);
+
     super.onClose();
   }
 
   @override
-  void onReady() {
-    super.onReady();
-    size = widgetRect.size;
-    updateCanvasSize();
+  Future<void> dispose() async {
+    Get.delete<BlueprintController>(tag: id);
+    for (var node in nodes) {
+      await node.dispose();
+    }
+    super.dispose();
   }
 
   //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  void addNode(Node node) {
-    node.id = const Uuid().v4();
-    node.controller.blueprint = this;
-    _nodes.add(node);
+  Future<void> addNode(Node node, [bool? follow]) async {
+    String id = " // ${const Uuid().v4()}";
+
+    var newNode = node.copyWith(id: node.id ?? id, blueprintController: this);
+    Get.put(newNode.init, tag: id);
+    nodes.add(newNode);
+
+    await 0.1.delay();
+    updateCanvasSize();
+    if (follow ?? followNewAddedNodes) {
+      animateTo(newNode.controller);
+    }
   }
 
-  void addNodes(List<Node> nodes) {
-    for (var node in nodes) {
+  void addNodes(Iterable<Node> newNodes) {
+    for (var node in newNodes) {
       addNode(node);
     }
   }
@@ -107,6 +144,8 @@ class BlueprintController extends GetxController
     for (var node in _nodes) {
       var ctrl = node.controller;
 
+      if (ctrl is FloatingNodeController) continue;
+
       // get bottom right edge position of this node
       Offset bottomRightEdge =
           ctrl.position + Offset(ctrl.size.width, ctrl.size.height);
@@ -115,21 +154,25 @@ class BlueprintController extends GetxController
       h = max(h, bottomRightEdge.dy);
     }
 
-    w = max(w + widgetRect.width / 2, widgetRect.width);
-    h = max(h + widgetRect.height / 2, widgetRect.height);
+    w = max(w + widgetRect!.width / 2, widgetRect!.width);
+    h = max(h + widgetRect!.height / 2, widgetRect!.height);
+
+    // apply minSize & maxSize
+    w = max(minSize.width, min(w, maxSize.width));
+    h = max(minSize.height, min(h, maxSize.height));
 
     size = Size(w, h);
   }
 
   void animateTo(NodeController node) {
-    lastDraggedNode.value = node;
+    focusedNode.value = node;
 
     Offset nodePos = node.position;
     Size nodeSize = node.size;
 
     Size widgetSize = Size(
-      min(widgetRect.width, Get.width),
-      min(widgetRect.height, Get.height),
+      min(widgetRect!.width, Get.width),
+      min(widgetRect!.height, Get.height),
     );
 
     Matrix4 scrollEnd = Matrix4.identity();
@@ -176,11 +219,23 @@ class BlueprintController extends GetxController
     _animController.reset();
   }
 
-  void onInteractionStart(ScaleStartDetails details) {
+  void onInteractionStart_(ScaleStartDetails details) {
     // If the user tries to cause a transformation while the reset animation is
     // running, cancel the reset animation.
     if (_animController.status == AnimationStatus.forward) {
       _stopAnim();
+    }
+  }
+
+  @override
+  Future<void> didChangeMetrics() async {
+    // await for widget to initialize, then update size.
+    await 0.1.delay();
+    updateCanvasSize();
+
+    var last = focusedNode.value;
+    if (last != null) {
+      animateTo(last);
     }
   }
 }

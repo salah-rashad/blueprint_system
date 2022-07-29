@@ -1,49 +1,83 @@
+import 'package:blueprint_system/blueprint_controller.dart';
 import 'package:blueprint_system/widgets/node/node.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart' hide Node;
 
 import 'draggable_node_controller.dart';
 
 class DraggableNode extends Node<DraggableNodeController> {
-  DraggableNode({
+  const DraggableNode({
+    super.id,
     super.key,
-    super.initPosition,
-    super.initSize,
-    required super.child,
+    super.child,
     this.feedback,
     this.childWhenDragging,
+    super.blueprintController,
+    super.initPosition,
+    super.initSize,
+    super.priority,
   });
 
   final NodeWidget<DraggableNodeController>? feedback;
   final NodeWidget<DraggableNodeController>? childWhenDragging;
 
   @override
-  DraggableNodeController get controller =>
-      Get.put(DraggableNodeController(initPosition, initSize), tag: id);
+  DraggableNodeController get init => DraggableNodeController(
+        id: id,
+        initPosition: initPosition,
+        initSize: initSize,
+        blueprint: blueprintController,
+        priority: priority,
+      );
 
-  @protected
+  @override
+  DraggableNode copyWith({
+    String? id,
+    NodeWidget<DraggableNodeController>? child,
+    NodeWidget<DraggableNodeController>? feedback,
+    NodeWidget<DraggableNodeController>? childWhenDragging,
+    Offset? initPosition,
+    Size? initSize,
+    BlueprintController? blueprintController,
+    int? priority,
+  }) {
+    return DraggableNode(
+      id: id ?? this.id,
+      child: child ?? this.child,
+      feedback: feedback ?? this.feedback,
+      childWhenDragging: childWhenDragging ?? this.childWhenDragging,
+      initPosition: initPosition ?? this.initPosition,
+      initSize: initSize ?? this.initSize,
+      blueprintController: blueprintController ?? this.blueprintController,
+      priority: priority ?? this.priority,
+    );
+  }
+
   @override
   Widget builder(DraggableNodeController controller) {
     return Listener(
       onPointerDown: (details) {
         controller.dragAnchor = details.localPosition;
       },
-      child: Draggable(
-        feedback: scaleSafeWidget(child: child(controller)),
-        childWhenDragging:
-            childWhenDragging?.call(controller) ?? const SizedBox.shrink(),
-        onDragEnd: controller.onDragEnd,
-        onDragStarted: controller.onDragStarted,
-        onDragUpdate: controller.onDragUpdate,
-        dragAnchorStrategy: controller.dragAnchorStrategy,
-        child: child(controller),
+      child: MouseRegion(
+        cursor: controller.mouseCursor,
+        child: Draggable<DraggableNode>(
+          data: this,
+          feedback: scaleSafeWidget(child: super.builder(controller)),
+          childWhenDragging:
+              childWhenDragging?.call(controller) ?? const SizedBox.shrink(),
+          onDragStarted: controller.onDragStarted,
+          onDragUpdate: controller.onDragUpdate,
+          onDragEnd: controller.onDragEnd,
+          dragAnchorStrategy: controller.dragAnchorStrategy,
+          child: super.builder(controller),
+        ),
       ),
     );
   }
 
   Widget scaleSafeWidget({required Widget child}) {
     return Transform.scale(
-      scale: controller.blueprint.scale,
+      scale: controller.blueprint!.scale,
       alignment: Alignment.topLeft,
       child: SizedBox(
         width: controller.size.width,
