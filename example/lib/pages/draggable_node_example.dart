@@ -21,6 +21,20 @@ class _DraggableNodeExampleState extends StateClass<DraggableNodeExample> {
       followNewAddedNodes: false,
       children: [
         DraggableNode(
+          initPosition: const Offset(100, 100),
+          initSize: const Size(600, 100),
+          priority: 0,
+          child: (c) => const Text(
+            """
+The DraggableNode can be moved anywhere in the Blueprint, 
+and in this example we show how the nodes are arranged in order of priority.
+Try to move any ;)
+          """,
+            // textAlign: TextAlign.center,
+            style: TextStyle(color: Colors.white, fontSize: 16),
+          ),
+        ),
+        DraggableNode(
           initPosition: const Offset(250, 350),
           initSize: const Size(200, 100),
           child: (c) => NodeContainer(
@@ -44,20 +58,6 @@ class _DraggableNodeExampleState extends StateClass<DraggableNodeExample> {
           child: (c) => NodeContainer(
             color: Colors.lightGreen,
             controller: c,
-          ),
-        ),
-        DraggableNode(
-          initPosition: const Offset(100, 100),
-          initSize: const Size(600, 100),
-          priority: 0,
-          child: (c) => const Text(
-            """
-The DraggableNode can be moved anywhere in the Blueprint, 
-and in this example we show how the nodes are arranged in order of priority.
-Try to move any ;)
-          """,
-            // textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.white, fontSize: 16),
           ),
         ),
       ],

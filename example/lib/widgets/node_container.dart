@@ -8,10 +8,12 @@ class NodeContainer extends StatelessWidget {
     super.key,
     required this.color,
     required this.controller,
+    this.text,
   });
 
   final Color color;
   final NodeController controller;
+  final String? text;
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +35,7 @@ class NodeContainer extends StatelessWidget {
           FontFeature.tabularFigures(),
         ],
       ),
+      verticalOffset: controller.size.height / 2,
       waitDuration: const Duration(milliseconds: 300),
       preferBelow: false,
       child: Container(
@@ -40,7 +43,8 @@ class NodeContainer extends StatelessWidget {
         alignment: Alignment.center,
         child: Text(
           "X: ${controller.position.dx.toStringAsFixed(1)}\n"
-          "Y: ${controller.position.dy.toStringAsFixed(1)}",
+          "Y: ${controller.position.dy.toStringAsFixed(1)}\n"
+          "${text ?? ""}",
           textAlign: TextAlign.center,
         ),
       ),

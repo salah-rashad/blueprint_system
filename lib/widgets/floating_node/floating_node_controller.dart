@@ -88,13 +88,14 @@ class FloatingNodeController extends NodeController {
       case Constraint.XY:
         return;
       case Constraint.XScreen:
-        x = _screenPosition.dx / blueprint!.scale;
-        y = newPosition.dy;
-        break;
-      case Constraint.YScreen:
         x = newPosition.dx;
         y = _screenPosition.dy / blueprint!.scale;
         break;
+      case Constraint.YScreen:
+        x = _screenPosition.dx / blueprint!.scale;
+        y = newPosition.dy;
+        break;
+
       case Constraint.XYScreen:
         x = _screenPosition.dx / blueprint!.scale;
         y = _screenPosition.dy / blueprint!.scale;

@@ -131,11 +131,7 @@ class _BlueprintState extends State<Blueprint> {
                 );
                 var newNode = droppedNode.copyWith(initPosition: offset);
 
-                if (newNode is FloatingNode) {
-                  controller.addNode(newNode, false);
-                } else {
-                  controller.addNode(newNode);
-                }
+                controller.addNode(newNode);
               },
               onWillAccept: (node) {
                 if (node == null) return false;

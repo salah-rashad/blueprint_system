@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:blueprint_system/src/event.dart';
 import 'package:blueprint_system/src/extensions.dart';
+import 'package:blueprint_system/widgets/floating_node/floating_node.dart';
 import 'package:blueprint_system/widgets/floating_node/floating_node_controller.dart';
 import 'package:blueprint_system/widgets/node/node.dart';
 import 'package:blueprint_system/widgets/node/node_controller.dart';
@@ -126,7 +127,7 @@ class BlueprintController extends FullLifeCycleController
 
     await 0.1.delay();
     updateCanvasSize();
-    if (follow ?? followNewAddedNodes) {
+    if (follow ?? followNewAddedNodes && node is! FloatingNode) {
       animateTo(newNode.controller);
     }
   }
