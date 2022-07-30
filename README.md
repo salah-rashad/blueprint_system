@@ -1,9 +1,6 @@
 <div align="center">
-  <!-- <p style="font-size: 80px">
-    ⚡
-  </p> -->
   <a href="#">
-    <img src="assets\images\logo.png" alt="Logo" width="80" height="80"/>
+    <img src="https://user-images.githubusercontent.com/35843293/181866140-cf4dfec6-31fb-4bb3-822c-24b871eb32c2.png" alt="Logo" width="80" height="80"/>
   </a>
   <h1>Blueprint System</h1>
   <p>
@@ -55,7 +52,7 @@
 
   ```yaml title="pubspec.yaml"
   dependencies:
-    blueprint_system: 0.1.0
+    blueprint_system: 0.1.1
   ```
 
   then get packages, (Alternatively, your editor might support this)

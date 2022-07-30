@@ -1,6 +1,5 @@
 library blueprint_system;
 
-// blueprint
 export 'src/blueprint.dart';
 export 'src/blueprint_controller.dart';
 export 'src/widgets/node/node.dart';
