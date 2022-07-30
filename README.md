@@ -24,7 +24,7 @@
   </a>
   <br/><br/>
   <a href="https://pub.dev/packages/blueprint_system" target="_blank">
-    <img src="https://img.shields.io/pub/v/blueprint_system.svg?style=for-the-badge&label=pub&color=blue"/> 
+    <img src="https://img.shields.io/pub/v/blueprint_system.svg?style=for-the-badge&label=pub&logo=dart"/> 
   </a>
   <a href="https://github.com/salah-rashad/blueprint_system/blob/master/LICENSE" target="_blank">
     <img src="https://img.shields.io/github/license/salah-rashad/blueprint_system.svg?style=for-the-badge"/> 
@@ -131,7 +131,7 @@ Pull requests are always welcome! 🦄
 - [x] Blueprint rulers 📏
 - [ ] https://github.com/salah-rashad/blueprint_system/issues/2
 - [ ] Connecting Nodes using arrows (like the flow chart).
-- [ ] Implement Blueprint Export to JSON, YAML, XML, etc.
+- [ ] Blueprint (Export to / Import from) JSON, YAML, XML, etc.
 - [ ] Add the ability to resize nodes (visually not programmatically).
 - [ ] Blueprint Themes/Templates.
 - [ ] Add an option to make the `FloatingNode` responsive to screen size changes.
