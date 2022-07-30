@@ -1,4 +1,4 @@
-import 'package:blueprint_system/blueprint_controller.dart';
+import 'package:blueprint_system/blueprint_system.dart';
 import 'package:flutter/material.dart';
 
 abstract class StateClass<T extends StatefulWidget> extends State<T> {

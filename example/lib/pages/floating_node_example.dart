@@ -1,6 +1,5 @@
-import 'package:blueprint_system/blueprint.dart';
-import 'package:blueprint_system/widgets/floating_node/floating_node.dart';
-import 'package:blueprint_system/widgets/floating_node/floating_node_controller.dart';
+
+import 'package:blueprint_system/blueprint_system.dart';
 import 'package:example/pages/state.dart';
 import 'package:example/widgets/node_container.dart';
 import 'package:flutter/material.dart';

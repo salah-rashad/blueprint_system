@@ -1,7 +1,7 @@
-import 'package:blueprint_system/src/ruler/ruler_controller.dart';
-import 'package:blueprint_system/widgets/floating_node/floating_node.dart';
-import 'package:blueprint_system/widgets/floating_node/floating_node_controller.dart';
-import 'package:blueprint_system/widgets/node/node.dart';
+import 'package:blueprint_system/src/widgets/floating_node/floating_node.dart';
+import 'package:blueprint_system/src/widgets/floating_node/floating_node_controller.dart';
+import 'package:blueprint_system/src/widgets/node/node.dart';
+import 'package:blueprint_system/src/widgets/ruler/ruler_controller.dart';
 import 'package:flutter/material.dart';
 
 import 'ruler_painter.dart';

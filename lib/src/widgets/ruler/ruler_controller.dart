@@ -1,4 +1,4 @@
-import 'package:blueprint_system/widgets/floating_node/floating_node_controller.dart';
+import 'package:blueprint_system/src/widgets/floating_node/floating_node_controller.dart';
 import 'package:flutter/material.dart';
 
 class RulerController extends FloatingNodeController {
@@ -23,19 +23,19 @@ class RulerController extends FloatingNodeController {
     // resulting in the ruler being rendered at full size,
     // causing stuttering and framerate drops.
 
-    Size? cameraSize = blueprint?.widgetRect?.size;
-    Offset? cameraPosition = blueprint?.cameraPosition;
+    Size? camSize = blueprint?.cameraSize;
+    Offset? camPos = blueprint?.cameraPosition;
 
-    if (cameraSize == null || cameraPosition == null) {
+    if (camSize == null || camPos == null) {
       return blueprint?.size ?? initSize;
     }
 
     double scale = blueprint?.scale ?? 1.0;
-    var resolvedWidth = cameraSize.width / scale + cameraPosition.dx / scale;
-    var resolvedHeight = cameraSize.height / scale + cameraPosition.dy / scale;
+    var resolvedWidth = (camSize.width + camPos.dx) / scale;
+    var resolvedHeight = (camSize.height + camPos.dy) / scale;
 
     return axis == Axis.horizontal
-        ? Size(resolvedWidth, cameraSize.height)
-        : Size(cameraSize.width, resolvedHeight);
+        ? Size(resolvedWidth, camSize.height)
+        : Size(camSize.width, resolvedHeight);
   }
 }

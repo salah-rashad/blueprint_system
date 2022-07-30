@@ -3,7 +3,7 @@
 import 'dart:math';
 import 'dart:ui';
 
-import 'package:blueprint_system/widgets/node/node_controller.dart';
+import 'package:blueprint_system/src/widgets/node/node_controller.dart';
 import 'package:get/get.dart';
 
 enum Constraint {
@@ -57,8 +57,8 @@ class FloatingNodeController extends NodeController {
   }
 
   void updatePosition(Offset v) {
-    double x = max(0, min(v.dx, blueprint!.widgetRect!.width));
-    double y = max(0, min(v.dy, blueprint!.widgetRect!.height));
+    double x = max(0, min(v.dx, blueprint!.cameraSize!.width));
+    double y = max(0, min(v.dy, blueprint!.cameraSize!.height));
     _screenPosition = Offset(x, y);
     _onInteract();
   }

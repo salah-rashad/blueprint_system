@@ -1,8 +1,9 @@
-<!-- PROJECT LOGO -->
-<br/>
 <div align="center">
+  <!-- <p style="font-size: 80px">
+    ⚡
+  </p> -->
   <a href="#">
-    <img src="assets\images\logo.png" alt="Logo" width="80" height="80">
+    <img src="assets\images\logo.png" alt="Logo" width="80" height="80"/>
   </a>
   <h1>Blueprint System</h1>
   <p>

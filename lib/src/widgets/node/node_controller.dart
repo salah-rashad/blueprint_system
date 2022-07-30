@@ -1,7 +1,7 @@
 import 'dart:math';
 
-import 'package:blueprint_system/blueprint_controller.dart';
-import 'package:blueprint_system/src/extensions.dart';
+import 'package:blueprint_system/src/blueprint_controller.dart';
+import 'package:blueprint_system/src/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -39,11 +39,11 @@ abstract class NodeController extends GetxController {
 
   static Offset? calculateOffset(
       Offset offset, Size size, BlueprintController blueprint) {
-    var blueprintRect = blueprint.getRect;
-    if (blueprintRect == null) return null;
+    var rect = blueprint.getRect;
+    if (rect == null) return null;
 
-    double x = (offset.dx - blueprintRect.left) / blueprint.scale;
-    double y = (offset.dy - blueprintRect.top) / blueprint.scale;
+    double x = (offset.dx - rect.left) / blueprint.scale;
+    double y = (offset.dy - rect.top) / blueprint.scale;
 
     x = max(0, min(x, blueprint.maxSize.width - size.width));
     y = max(0, min(y, blueprint.maxSize.height - size.height));

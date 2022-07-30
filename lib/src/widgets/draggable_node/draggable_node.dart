@@ -1,5 +1,5 @@
-import 'package:blueprint_system/blueprint_controller.dart';
-import 'package:blueprint_system/widgets/node/node.dart';
+import 'package:blueprint_system/src/blueprint_controller.dart';
+import 'package:blueprint_system/src/widgets/node/node.dart';
 import 'package:flutter/material.dart';
 
 import 'draggable_node_controller.dart';

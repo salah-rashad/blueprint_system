@@ -1,11 +1,10 @@
 import 'dart:math';
-
-import 'package:blueprint_system/src/event.dart';
-import 'package:blueprint_system/src/extensions.dart';
-import 'package:blueprint_system/widgets/floating_node/floating_node.dart';
-import 'package:blueprint_system/widgets/floating_node/floating_node_controller.dart';
-import 'package:blueprint_system/widgets/node/node.dart';
-import 'package:blueprint_system/widgets/node/node_controller.dart';
+import 'package:blueprint_system/src/utils/event.dart';
+import 'package:blueprint_system/src/utils/extensions.dart';
+import 'package:blueprint_system/src/widgets/floating_node/floating_node.dart';
+import 'package:blueprint_system/src/widgets/floating_node/floating_node_controller.dart';
+import 'package:blueprint_system/src/widgets/node/node.dart';
+import 'package:blueprint_system/src/widgets/node/node_controller.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart' hide Node;
 import 'package:uuid/uuid.dart';
@@ -47,8 +46,11 @@ class BlueprintController extends FullLifeCycleController
   final RxList<Node> _nodes = RxList.empty(growable: true);
   List<Node> get nodes => _nodes;
 
-  Vector3 get translation => transformationController.value.getTranslation();
-  Offset get cameraPosition => Offset(translation.x.abs(), translation.y.abs());
+  Vector3 get _translation => transformationController.value.getTranslation();
+  Rect? get getRect => stackKey.globalPaintBounds;
+
+  Offset get cameraPosition => Offset(_translation.x.abs(), _translation.y.abs());
+  Size? get cameraSize => widgetKey.globalPaintBounds?.size;
 
   //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   final RxDouble _scale = RxDouble(1);
@@ -61,9 +63,6 @@ class BlueprintController extends FullLifeCycleController
   final RxBool _showGrid = RxBool(true);
   bool get showGrid => _showGrid.value;
   set showGrid(bool value) => _showGrid.value = value;
-
-  Rect? get widgetRect => widgetKey.globalPaintBounds;
-  Rect? get getRect => stackKey.globalPaintBounds;
 
   //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -91,7 +90,7 @@ class BlueprintController extends FullLifeCycleController
   @override
   void onReady() {
     super.onReady();
-    size = widgetRect!.size;
+    size = cameraSize!;
 
     transformationController.addListener(onInteractionUpdate.invoke);
     WidgetsBinding.instance.addObserver(this);
@@ -155,8 +154,8 @@ class BlueprintController extends FullLifeCycleController
       h = max(h, bottomRightEdge.dy);
     }
 
-    w = max(w + widgetRect!.width / 2, widgetRect!.width);
-    h = max(h + widgetRect!.height / 2, widgetRect!.height);
+    w = max(w + cameraSize!.width / 2, cameraSize!.width);
+    h = max(h + cameraSize!.height / 2, cameraSize!.height);
 
     // apply minSize & maxSize
     w = max(minSize.width, min(w, maxSize.width));
@@ -172,8 +171,8 @@ class BlueprintController extends FullLifeCycleController
     Size nodeSize = node.size;
 
     Size widgetSize = Size(
-      min(widgetRect!.width, Get.width),
-      min(widgetRect!.height, Get.height),
+      min(cameraSize!.width, Get.width),
+      min(cameraSize!.height, Get.height),
     );
 
     Matrix4 scrollEnd = Matrix4.identity();

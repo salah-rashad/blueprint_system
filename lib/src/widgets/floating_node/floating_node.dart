@@ -1,8 +1,7 @@
+import 'package:blueprint_system/src/blueprint_controller.dart';
+import 'package:blueprint_system/src/widgets/floating_node/floating_node_controller.dart';
+import 'package:blueprint_system/src/widgets/node/node.dart';
 import 'package:flutter/material.dart';
-
-import 'package:blueprint_system/blueprint_controller.dart';
-import 'package:blueprint_system/widgets/floating_node/floating_node_controller.dart';
-import 'package:blueprint_system/widgets/node/node.dart';
 
 class FloatingNode extends Node<FloatingNodeController> {
   const FloatingNode({

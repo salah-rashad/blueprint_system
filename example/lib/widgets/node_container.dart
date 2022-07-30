@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:blueprint_system/widgets/node/node_controller.dart';
+import 'package:blueprint_system/blueprint_system.dart';
 import 'package:flutter/material.dart';
 
 class NodeContainer extends StatelessWidget {

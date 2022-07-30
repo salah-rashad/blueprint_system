@@ -1,4 +1,4 @@
-import 'package:blueprint_system/blueprint_controller.dart';
+import 'package:blueprint_system/src/blueprint_controller.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Node;
