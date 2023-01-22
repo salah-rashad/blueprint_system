@@ -1,12 +1,12 @@
+import 'package:blueprint_system/src/models/ruler_options.dart';
+import 'package:blueprint_system/src/widgets/ruler/ruler.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Node;
 
-import 'blueprint_controller.dart';
-import 'models/ruler_options.dart';
-import 'widgets/floating_node/floating_node_controller.dart';
-import 'widgets/node/node.dart';
-import 'widgets/node/node_controller.dart';
-import 'widgets/ruler/ruler.dart';
+import '../../blueprint_controller.dart';
+import '../floating_node/floating_node_controller.dart';
+import '../node/node.dart';
+import '../node/node_controller.dart';
 
 class Blueprint extends StatefulWidget {
   static const Size maxBlueprintSize = Size(50000, 50000);
@@ -135,13 +135,10 @@ class _BlueprintState extends State<Blueprint> {
 
                     var offset = NodeController.calculateOffset(
                       details.offset,
-                      droppedNode.initSize,
+                      droppedNode.controller.size,
                       controller,
                     );
-                    var newNode = droppedNode.copyWith(
-                      initPosition: offset,
-                      blueprintController: controller,
-                    );
+                    var newNode = droppedNode.copyWith(initPosition: offset);
 
                     controller.addNode(newNode);
                   },
@@ -164,10 +161,10 @@ class _BlueprintState extends State<Blueprint> {
   }
 
   @override
-  void dispose() {
+  Future<void> dispose() async {
     var ctrl = widget.controller;
     if (ctrl != null) {
-      ctrl.dispose();
+      await ctrl.dispose();
       Get.delete<FloatingNodeController>(tag: hRulerId(ctrl.id));
       Get.delete<FloatingNodeController>(tag: vRulerId(ctrl.id));
     }

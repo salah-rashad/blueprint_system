@@ -39,6 +39,7 @@ Try to move any ;)
           child: (c) => NodeContainer(
             color: Colors.green,
             controller: c,
+            text: "\npriority: ${c.priority}",
           ),
           priority: 50,
         ),
@@ -48,6 +49,7 @@ Try to move any ;)
           child: (c) => NodeContainer(
             color: Colors.greenAccent,
             controller: c,
+            text: "\npriority: ${c.priority}",
           ),
           priority: 200,
         ),
@@ -57,6 +59,7 @@ Try to move any ;)
           child: (c) => NodeContainer(
             color: Colors.lightGreen,
             controller: c,
+            text: "\npriority: ${c.priority}",
           ),
         ),
       ],

@@ -38,7 +38,7 @@
 
 ### Installation
 
-- ### Method 1 (Recommended)
+- #### Method 1 (Recommended)
 
   run this line in your terminal:
 
@@ -46,13 +46,13 @@
   flutter pub add blueprint_system
   ```
 
-- ### Method 2
+- #### Method 2
 
   add this line to your `pubspec.yaml` dependencies:
 
   ```yaml title="pubspec.yaml"
   dependencies:
-    blueprint_system: 0.1.1
+    blueprint_system: 0.2.0
   ```
 
   then get packages, (Alternatively, your editor might support this)
@@ -129,9 +129,9 @@ Pull requests are always welcome! 🦄
 - [x] Draggable Node 👆↔️
 - [x] Floating Node ✨
 - [x] Blueprint rulers 📏
-- [ ] https://github.com/salah-rashad/blueprint_system/issues/2
+- [x] Add the ability to resize nodes (visually not programmatically).
 - [ ] Connecting Nodes using arrows (like the flow chart).
 - [ ] Blueprint (Export to / Import from) JSON, YAML, XML, etc.
-- [ ] Add the ability to resize nodes (visually not programmatically).
 - [ ] Blueprint Themes/Templates.
+- [ ] https://github.com/salah-rashad/blueprint_system/issues/2
 - [ ] Add an option to make the `FloatingNode` responsive to screen size changes.

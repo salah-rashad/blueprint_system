@@ -1,26 +1,25 @@
 import 'package:blueprint_system/src/utils/extensions.dart';
-import 'package:blueprint_system/src/widgets/floating_node/floating_node_controller.dart';
+import 'package:blueprint_system/src/models/ruler_options.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
+
+import '../floating_node/floating_node_controller.dart';
 
 class RulerPainter extends CustomPainter {
   const RulerPainter({
     required this.controller,
-    required this.textColor,
-    required this.interval,
-    required this.divisions,
     required this.axis,
-    required this.hideZero,
+    required this.options,
     super.repaint,
   });
 
   final FloatingNodeController controller;
-  final Color? textColor;
-  final double interval;
-  final int divisions;
-
   final Axis axis;
-  final bool hideZero;
+  final RulerOptions options;
+
+  double get interval => options.interval;
+  int get divisions => options.divisions;
+  Color? get textColor => options.textColor;
 
   @override
   void paint(Canvas canvas, Size size) {

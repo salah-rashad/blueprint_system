@@ -3,8 +3,9 @@
 import 'dart:math';
 import 'dart:ui';
 
-import 'package:blueprint_system/src/widgets/node/node_controller.dart';
 import 'package:get/get.dart';
+
+import '../node/node_controller.dart';
 
 enum Constraint {
   NONE,
@@ -18,9 +19,10 @@ enum Constraint {
 
 class FloatingNodeController extends NodeController {
   FloatingNodeController({
-    super.id,
+    required super.id,
     required super.initPosition,
     required super.initSize,
+    required super.minSize,
     required super.blueprint,
     required super.priority,
     required this.initialConstraint,

@@ -1,15 +1,15 @@
-import 'dart:io';
-
-import 'package:blueprint_system/src/widgets/node/node_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../node/node_controller.dart';
+
 class DraggableNodeController extends NodeController {
   DraggableNodeController({
-    super.id,
+    required super.id,
     required super.initPosition,
     required super.initSize,
     required super.priority,
+    required super.minSize,
     super.blueprint,
   });
 
@@ -31,35 +31,31 @@ class DraggableNodeController extends NodeController {
 
   MouseCursor get mouseCursor {
     if (isGrabbed) {
-      if (Platform.isWindows) {
-        return SystemMouseCursors.move;
-      } else {
-        return SystemMouseCursors.grabbing;
-      }
+      return SystemMouseCursors.move;
     } else {
-      if (Platform.isWindows) {
-        return SystemMouseCursors.move;
-      } else {
-        return SystemMouseCursors.grab;
-      }
+      return SystemMouseCursors.move;
     }
   }
 
   void onDragStarted() {
     onDragStartedCallback?.call();
+    // blueprint?.nodeGlobalCallbacks.onNodeDragStart.invoke(position);
     isGrabbed = true;
   }
 
   void onDragUpdate(DragUpdateDetails details) {
     onDragUpdateCallback?.call(details);
+    // blueprint?.nodeGlobalCallbacks.onNodeDragUpdate.invoke(position);
   }
 
   Future<void> onDragEnd(DraggableDetails details) async {
     onDragEndCallback?.call(details);
     isGrabbed = false;
 
-    var calculatedPos = NodeController.calculateOffset(details.offset, size, blueprint!);
+    var calculatedPos =
+        NodeController.calculateOffset(details.offset, size, blueprint!);
     if (calculatedPos != null) {
+      blueprint?.nodeGlobalEvents.onMoved.invoke(this, position, calculatedPos);
       position = calculatedPos;
     }
 

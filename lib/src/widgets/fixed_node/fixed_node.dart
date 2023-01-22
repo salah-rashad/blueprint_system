@@ -1,19 +1,20 @@
 import 'dart:ui';
 
-import 'package:blueprint_system/src/blueprint_controller.dart';
-import 'package:blueprint_system/src/widgets/node/node.dart';
-
+import '../../blueprint_controller.dart';
+import '../node/node.dart';
 import 'fixed_node_controller.dart';
 
 class FixedNode extends Node<FixedNodeController> {
   const FixedNode({
     super.key,
     super.id,
-    super.child,
     super.initPosition,
     super.initSize,
-    super.blueprintController,
+    super.child,
+    super.blueprint,
     super.priority,
+    super.minSize,
+    super.focusEnabled,
   });
 
   @override
@@ -21,8 +22,9 @@ class FixedNode extends Node<FixedNodeController> {
         id: id,
         initPosition: initPosition,
         initSize: initSize,
-        blueprint: blueprintController,
+        blueprint: blueprint,
         priority: priority,
+        minSize: minSize,
       );
 
   @override
@@ -33,14 +35,16 @@ class FixedNode extends Node<FixedNodeController> {
     Size? initSize,
     BlueprintController? blueprintController,
     int? priority,
+    bool? focusEnabled,
   }) {
     return FixedNode(
       id: id ?? this.id,
       child: child ?? this.child,
       initPosition: initPosition ?? this.initPosition,
       initSize: initSize ?? this.initSize,
-      blueprintController: blueprintController ?? this.blueprintController,
+      blueprint: blueprintController ?? blueprint,
       priority: priority ?? this.priority,
+      focusEnabled: focusEnabled ?? this.focusEnabled,
     );
   }
 }

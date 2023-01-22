@@ -1,5 +1,6 @@
-import 'package:blueprint_system/src/widgets/floating_node/floating_node_controller.dart';
 import 'package:flutter/material.dart';
+
+import '../floating_node/floating_node_controller.dart';
 
 class RulerController extends FloatingNodeController {
   RulerController({
@@ -8,6 +9,7 @@ class RulerController extends FloatingNodeController {
     required super.initSize,
     required super.blueprint,
     required super.priority,
+    required super.minSize,
     required super.initialConstraint,
     required super.sizeFixed,
     required this.axis,

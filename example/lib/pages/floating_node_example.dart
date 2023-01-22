@@ -1,4 +1,3 @@
-
 import 'package:blueprint_system/blueprint_system.dart';
 import 'package:example/pages/state.dart';
 import 'package:example/widgets/node_container.dart';
@@ -13,11 +12,6 @@ class FloatingNodeExample extends StatefulWidget {
 
 class _FloatingNodeExampleState extends StateClass<FloatingNodeExample> {
   _FloatingNodeExampleState() : super("Floating Node");
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget child(BuildContext context) {
@@ -38,7 +32,7 @@ Fabulous isn't it! ✨
 Try to move through the Blueprint or zoom in/out.
           """,
             // textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.white, fontSize: 16),
+            style: TextStyle(color: Colors.white, fontSize: 14),
           ),
         ),
         // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
@@ -52,7 +46,7 @@ This node will stay at the predetermined position (relative to screen) but it's 
 [changes]
 sizeFixed: false
 """,
-            style: TextStyle(color: Colors.white, fontSize: 16),
+            style: TextStyle(color: Colors.white, fontSize: 14),
           ),
         ),
         FloatingNode(
@@ -76,7 +70,7 @@ This node will constraint the [x] coordinate of the position but the [y] coordin
 [changes]
 constraint: Constraint.X
 """,
-            style: TextStyle(color: Colors.white, fontSize: 16),
+            style: TextStyle(color: Colors.white, fontSize: 14),
           ),
         ),
         FloatingNode(
@@ -100,7 +94,7 @@ This node will constraint the [x & y] coordinates of the position but it's size 
 [changes]
 constraint: Constraint.XY
 """,
-            style: TextStyle(color: Colors.white, fontSize: 16),
+            style: TextStyle(color: Colors.white, fontSize: 14),
           ),
         ),
         FloatingNode(
@@ -124,7 +118,7 @@ This node will constraint the [y] coordinate of the position but the [x] coordin
 [changes]
 constraint: Constraint.Y
 """,
-            style: TextStyle(color: Colors.white, fontSize: 16),
+            style: TextStyle(color: Colors.white, fontSize: 14),
           ),
         ),
         FloatingNode(
@@ -148,7 +142,7 @@ This node will constraint the [x] coordinate (relative to the screen) but the [y
 [changes]
 constraint: Constraint.XScreen
 """,
-            style: TextStyle(color: Colors.white, fontSize: 16),
+            style: TextStyle(color: Colors.white, fontSize: 14),
           ),
         ),
         FloatingNode(
@@ -172,7 +166,7 @@ This node will constraint the [x & y] coordinate (relative to the screen) but it
 [changes]
 constraint: Constraint.XYScreen
 """,
-            style: TextStyle(color: Colors.white, fontSize: 16),
+            style: TextStyle(color: Colors.white, fontSize: 14),
           ),
         ),
         FloatingNode(
@@ -196,7 +190,7 @@ This node will constraint the [y] coordinate (relative to the screen) but the [x
 [changes]
 constraint: Constraint.YScreen
 """,
-            style: TextStyle(color: Colors.white, fontSize: 16),
+            style: TextStyle(color: Colors.white, fontSize: 14),
           ),
         ),
         FloatingNode(

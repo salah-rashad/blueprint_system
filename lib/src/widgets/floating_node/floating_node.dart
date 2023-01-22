@@ -1,7 +1,8 @@
-import 'package:blueprint_system/src/blueprint_controller.dart';
-import 'package:blueprint_system/src/widgets/floating_node/floating_node_controller.dart';
-import 'package:blueprint_system/src/widgets/node/node.dart';
 import 'package:flutter/material.dart';
+
+import '../../blueprint_controller.dart';
+import '../node/node.dart';
+import 'floating_node_controller.dart';
 
 class FloatingNode extends Node<FloatingNodeController> {
   const FloatingNode({
@@ -9,9 +10,11 @@ class FloatingNode extends Node<FloatingNodeController> {
     super.key,
     super.initPosition,
     super.initSize,
-    super.blueprintController,
+    super.blueprint,
     super.child,
     super.priority = 99999,
+    super.minSize,
+    super.focusEnabled,
     this.constraint = Constraint.NONE,
     this.sizeFixed = true,
   });
@@ -24,10 +27,11 @@ class FloatingNode extends Node<FloatingNodeController> {
         id: id,
         initPosition: initPosition,
         initSize: initSize,
-        blueprint: blueprintController,
+        blueprint: blueprint,
         priority: priority,
         initialConstraint: constraint,
         sizeFixed: sizeFixed,
+        minSize: minSize,
       );
 
   @override
@@ -47,6 +51,7 @@ class FloatingNode extends Node<FloatingNodeController> {
     Size? initSize,
     BlueprintController? blueprintController,
     int? priority,
+    bool? focusEnabled,
     Constraint? constraint,
     bool? sizeFixed,
   }) {
@@ -55,10 +60,11 @@ class FloatingNode extends Node<FloatingNodeController> {
       child: child ?? this.child,
       initPosition: initPosition ?? this.initPosition,
       initSize: initSize ?? this.initSize,
-      blueprintController: blueprintController ?? this.blueprintController,
+      blueprint: blueprintController ?? this.blueprint,
       priority: priority ?? this.priority,
       constraint: constraint ?? this.constraint,
       sizeFixed: sizeFixed ?? this.sizeFixed,
+      focusEnabled: focusEnabled ?? this.focusEnabled,
     );
   }
 }

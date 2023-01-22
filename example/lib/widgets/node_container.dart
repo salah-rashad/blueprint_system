@@ -35,17 +35,21 @@ class NodeContainer extends StatelessWidget {
           FontFeature.tabularFigures(),
         ],
       ),
-      verticalOffset: controller.size.height / 2,
+      verticalOffset: controller.sizeScaled.height / 2,
       waitDuration: const Duration(milliseconds: 300),
       preferBelow: false,
       child: Container(
         decoration: BoxDecoration(color: color),
         alignment: Alignment.center,
-        child: Text(
-          "X: ${controller.position.dx.toStringAsFixed(1)}\n"
-          "Y: ${controller.position.dy.toStringAsFixed(1)}\n"
-          "${text ?? ""}",
-          textAlign: TextAlign.center,
+        child: Column(
+          children: [
+            Text(
+              "X: ${controller.position.dx.toStringAsFixed(1)}\n"
+              "Y: ${controller.position.dy.toStringAsFixed(1)}\n"
+              "${text ?? ""}",
+              textAlign: TextAlign.center,
+            ),
+          ],
         ),
       ),
     );
