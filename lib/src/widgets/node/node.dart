@@ -59,7 +59,7 @@ abstract class Node<T extends NodeController> extends GetWidget<T> {
     NodeWidget<T>? child,
     Offset? initPosition,
     Size? initSize,
-    BlueprintController? blueprintController,
+    BlueprintController? blueprint,
     int? priority,
     bool? focusEnabled,
   });

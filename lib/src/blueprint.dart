@@ -140,7 +140,7 @@ class _BlueprintState extends State<Blueprint> {
                     );
                     var newNode = droppedNode.copyWith(
                       initPosition: offset,
-                      blueprintController: controller,
+                      blueprint: controller,
                     );
 
                     controller.addNode(newNode);

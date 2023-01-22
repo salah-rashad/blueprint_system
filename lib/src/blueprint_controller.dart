@@ -148,7 +148,7 @@ class BlueprintController extends FullLifeCycleController
   Future<void> addNode(Node node, [bool? follow]) async {
     String id = " // ${const Uuid().v4()}";
 
-    var newNode = node.copyWith(id: node.id ?? id, blueprintController: this);
+    var newNode = node.copyWith(id: node.id ?? id, blueprint: this);
     Get.lazyPut(() async => newNode.init, tag: node.id ?? id);
     nodes.add(newNode);
 

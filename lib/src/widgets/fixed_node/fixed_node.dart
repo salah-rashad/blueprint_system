@@ -33,7 +33,7 @@ class FixedNode extends Node<FixedNodeController> {
     NodeWidget<FixedNodeController>? child,
     Offset? initPosition,
     Size? initSize,
-    BlueprintController? blueprintController,
+    BlueprintController? blueprint,
     int? priority,
     bool? focusEnabled,
   }) {
@@ -42,7 +42,7 @@ class FixedNode extends Node<FixedNodeController> {
       child: child ?? this.child,
       initPosition: initPosition ?? this.initPosition,
       initSize: initSize ?? this.initSize,
-      blueprint: blueprintController ?? blueprint,
+      blueprint: blueprint ?? blueprint,
       priority: priority ?? this.priority,
       focusEnabled: focusEnabled ?? this.focusEnabled,
     );

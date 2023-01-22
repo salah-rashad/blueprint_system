@@ -40,7 +40,7 @@ class DraggableNode extends Node<DraggableNodeController> {
     NodeWidget<DraggableNodeController>? childWhenDragging,
     Offset? initPosition,
     Size? initSize,
-    BlueprintController? blueprintController,
+    BlueprintController? blueprint,
     int? priority,
     bool? focusEnabled,
   }) {
@@ -51,7 +51,7 @@ class DraggableNode extends Node<DraggableNodeController> {
       childWhenDragging: childWhenDragging ?? this.childWhenDragging,
       initPosition: initPosition ?? this.initPosition,
       initSize: initSize ?? this.initSize,
-      blueprint: blueprintController ?? this.blueprint,
+      blueprint: blueprint ?? this.blueprint,
       priority: priority ?? this.priority,
       focusEnabled: focusEnabled ?? this.focusEnabled,
     );

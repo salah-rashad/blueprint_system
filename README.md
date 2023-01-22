@@ -52,7 +52,7 @@
 
   ```yaml title="pubspec.yaml"
   dependencies:
-    blueprint_system: 0.2.0
+    blueprint_system: 0.1.2
   ```
 
   then get packages, (Alternatively, your editor might support this)
