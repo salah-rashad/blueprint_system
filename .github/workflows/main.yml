@@ -15,3 +15,4 @@ jobs:
         with:
           workingDir: example
           targetBranch: example-gh-pages
+          baseHref: /blueprint_system/
