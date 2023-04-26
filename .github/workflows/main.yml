@@ -14,5 +14,3 @@ jobs:
       - uses: bluefireteam/flutter-gh-pages@v7
         with:
           workingDir: example
-          targetBranch: example-gh-pages
-          baseHref: /blueprint_system/
