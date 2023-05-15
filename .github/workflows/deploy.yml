@@ -13,9 +13,10 @@ jobs:
       - uses: subosito/flutter-action@v1
       - name: Build web app
         run: flutter build web
+        working-directory: ./example
       - name: Deploy to GitHub Pages
         uses: bluefireteam/flutter-gh-pages@v7
         with:
           targetBranch: gh-pages
-          workingDir: example
+          workingDir: ./example
           webRenderer: canvaskit
