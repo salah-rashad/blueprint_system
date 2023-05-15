@@ -15,8 +15,7 @@ jobs:
         run: flutter build web
         working-directory: ./example
       - name: Deploy to GitHub Pages
-        uses: bluefireteam/flutter-gh-pages@v7
+        uses: AlienKevin/flutter-gh-pages@v11
         with:
           targetBranch: gh-pages
           workingDir: ./example
-          webRenderer: canvaskit
