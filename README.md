@@ -6,6 +6,11 @@
   <p>
     A Flutter library that creates blueprint widgets with <b>nodes</b> (child widgets) that may be added to them. These nodes can be <b>moved</b>, <b>resized</b>, and <b>modified</b>.
   </p>
+  <p>
+  Made with ❤️ in Egypt 🇪🇬 by <a href="https://github.com/salah-rashad" target="_blank">Salah Rashad</a>
+  <br/>
+  #FreePalestine 🇵🇸
+  </p>
   <h3>
     <a href="https://salah-rashad.github.io/blueprint_system_docs" target="_blank" style="color: white">
       Explore the docs »
@@ -28,6 +33,9 @@
   </a>
   <a href="https://github.com/salah-rashad/blueprint_system/blob/master/LICENSE" target="_blank">
     <img src="https://img.shields.io/github/license/salah-rashad/blueprint_system.svg?style=for-the-badge"/> 
+  </a>
+  <a href="https://github.com/salah-rashad/blueprint_system/stargazers" target="_blank">
+    <img src="https://img.shields.io/github/stars/salah-rashad/blueprint_system.svg?style=for-the-badge"/>
   </a>
   <br/><br/>
 </div>
