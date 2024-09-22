@@ -7,9 +7,19 @@ on:
 
 jobs:
   build:
+    name: Build and Deploy
     runs-on: ubuntu-latest
-
     steps:
-      - uses: erickzanardo/flutter-gh-pages@v6
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+      - name: Build and deploy Flutter web app
+        uses: antinna/fa@v1
+        id: build
         with:
-          workingDir: ../example
+          release: true
+          gh_pages: true
+          webRenderer: auto
+          baseHref: "/"
+          workingDir: ./example
