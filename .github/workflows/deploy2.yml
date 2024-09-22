@@ -1,4 +1,16 @@
-- name: Deploy the example project
-  uses: rexthecoder/Pinky@v2.0.0
-  with:
-    web: true
+on:
+  push:
+    branches:
+    - master
+
+name: Deploy Example Project
+jobs:
+  deploy:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Pinky Flutter
+        uses: rexthecoder/Pinky@v2.0.0
+        with:
+          web: true
+  
+  
