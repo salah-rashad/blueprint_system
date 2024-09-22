@@ -22,6 +22,4 @@ jobs:
         with:
           release: true
           gh_pages: true
-          webRenderer: auto
-          baseHref: "/"
           workingDir: ./example
