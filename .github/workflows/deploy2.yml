@@ -1,6 +1,3 @@
-
-    
-  
 name: Deploy Example Project
 
 on:
@@ -15,4 +12,4 @@ jobs:
     steps:
       - uses: erickzanardo/flutter-gh-pages@v6
         with:
-          workingDir: example
+          workingDir: ../example
