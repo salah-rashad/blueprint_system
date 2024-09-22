@@ -1,16 +1,18 @@
+
+    
+  
+name: Deploy Example Project
+
 on:
   push:
     branches:
-    - master
+      - master
 
-name: Deploy Example Project
 jobs:
-  deploy:
-    runs-on: ubuntu-22.04
+  build:
+    runs-on: ubuntu-latest
+
     steps:
-      - name: Pinky Flutter
-        uses: rexthecoder/Pinky@v2.0.0
+      - uses: erickzanardo/flutter-gh-pages@v6
         with:
-          web: true
-  
-  
+          workingDir: example
