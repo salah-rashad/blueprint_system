@@ -22,4 +22,5 @@ jobs:
         with:
           release: true
           gh_pages: true
-          workingDir: ./example
+          workingDir: "./example"
+          baseHref: "/blueprint_system/"
