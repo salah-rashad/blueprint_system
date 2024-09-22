@@ -5,17 +5,17 @@ homepage: https://salah-rashad.github.io/blueprint_system
 repository: https://github.com/salah-rashad/blueprint_system
 
 environment:
-  sdk: ">=2.10.5 <3.0.0"
+  sdk: '>=3.0.0 <4.0.0'
   flutter: ">=1.17.0"
 
 dependencies:
   flutter:
     sdk: flutter
 
-  get: ^4.6.5
-  intl: ^0.17.0
-  uuid: ^3.0.6
-  vector_math: ^2.1.2
+  get: ^4.6.6
+  intl: ^0.19.0
+  uuid: ^4.5.0
+  vector_math: ^2.1.4
 
 dev_dependencies:
   flutter_test:
