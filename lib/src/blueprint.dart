@@ -145,8 +145,9 @@ class _BlueprintState extends State<Blueprint> {
 
                     controller.addNode(newNode);
                   },
-                  onWillAccept: (node) {
-                    if (node == null) return false;
+                  onWillAcceptWithDetails: (details) {
+                    final node = details.data;
+                    // if (node == null) return false;
                     if (controller.nodes
                         .any((element) => element.id == node.id)) {
                       return false;

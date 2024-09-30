@@ -7,7 +7,7 @@ import 'package:undo/undo.dart';
 import '../widgets/resizable_node.dart';
 
 class DevPage extends StatefulWidget {
-  const DevPage({Key? key}) : super(key: key);
+  const DevPage({super.key});
 
   @override
   State<DevPage> createState() => _DevPageState();

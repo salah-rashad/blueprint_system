@@ -1,3 +1,7 @@
 {
-  "cSpell.words": ["Draggable", "vsync"]
+  "cSpell.words": [
+    "Draggable",
+    "vsync"
+  ],
+  "cmake.ignoreCMakeListsMissing": true
 }
