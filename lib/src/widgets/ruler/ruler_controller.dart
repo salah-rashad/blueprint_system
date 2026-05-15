@@ -12,6 +12,7 @@ class RulerController extends FloatingNodeController {
     required super.minSize,
     required super.initialConstraint,
     required super.sizeFixed,
+    super.responsiveToScreen = false,
     required this.axis,
   });
 

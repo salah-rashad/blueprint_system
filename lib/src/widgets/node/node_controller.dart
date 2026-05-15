@@ -59,6 +59,15 @@ abstract class NodeController extends GetxController {
   bool get resizable => _resizable.value;
   set resizable(bool value) => _resizable.value = value;
 
+  final RxList<PortData> _ports = RxList<PortData>([]);
+  List<PortData> get ports => _ports;
+  set ports(List<PortData> value) => _ports.value = value;
+
+  /// Get the absolute screen position of a port on this node.
+  Offset getPortPosition(PortData port) {
+    return position + port.relativePosition;
+  }
+
   Event2<Offset, Offset, void Function(Offset oldValue, Offset newValue)>
       onPositionChanged = Event2();
   Event2<Size, Size, void Function(Size oldValue, Size newValue)>

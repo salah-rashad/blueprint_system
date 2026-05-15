@@ -1,8 +1,11 @@
+import 'dart:developer' as dev;
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Node;
 
 import 'blueprint_controller.dart';
 import 'models/ruler_options.dart';
+import 'widgets/connection/connections_layer.dart';
 import 'widgets/floating_node/floating_node_controller.dart';
 import 'widgets/node/node.dart';
 import 'widgets/node/node_controller.dart';
@@ -66,8 +69,8 @@ class _BlueprintState extends State<Blueprint> {
         return GestureDetector(
           onTap: () => controller.focusedNode = null,
           child: Container(
-            color: widget.backgroundColor ?? Colors.grey.shade900,
-            key: controller.widgetKey,
+            color: widget.backgroundColor ?? controller.theme.backgroundColor,
+                key: controller.widgetKey,
             child: InteractiveViewer(
               transformationController: controller.transformationController,
               clipBehavior: Clip.antiAlias,
@@ -84,7 +87,7 @@ class _BlueprintState extends State<Blueprint> {
               maxScale: 1.0,
               constrained: false,
               child: Container(
-                color: widget.backgroundColor ?? Colors.grey.shade900,
+                color: widget.backgroundColor ?? controller.theme.backgroundColor,
                 width: controller.size.width,
                 height: controller.size.height,
                 child: DragTarget<Node>(
@@ -98,7 +101,7 @@ class _BlueprintState extends State<Blueprint> {
                             opacity: controller.showGrid ? 1.0 : 0.0,
                             duration: const Duration(milliseconds: 200),
                             child: GridPaper(
-                              color: Colors.white.withOpacity(0.1),
+                              color: controller.theme.gridColor,
                               divisions: 2,
                               interval: 100,
                             ),
@@ -106,6 +109,7 @@ class _BlueprintState extends State<Blueprint> {
                         ),
                         ...controller.nodes
                           ..sort((a, b) => a.priority.compareTo(b.priority)),
+                        ConnectionsLayer(blueprint: controller),
                         Ruler(
                           // tooltip: "X direction",
                           id: hRulerId(controller.id),
@@ -126,10 +130,35 @@ class _BlueprintState extends State<Blueprint> {
                   onAcceptWithDetails: (details) {
                     var droppedNode = details.data;
 
-                    // move node from a blueprint to another
-                    if (droppedNode.blueprint != null) {
-                      // disabling this feature until this issue gets fixed
-                      // https://github.com/salah-rashad/blueprint_system/issues/2
+                    // Cross-blueprint transfer: clone to this blueprint,
+                    // then remove from source.
+                    if (droppedNode.blueprint != null &&
+                        droppedNode.blueprint != controller) {
+                      try {
+                        var offset = NodeController.calculateOffset(
+                          details.offset,
+                          droppedNode.initSize,
+                          controller,
+                        );
+                        // Clone with fresh ID into target blueprint.
+                        var newNode = droppedNode.copyWith(
+                          id: null,
+                          initPosition: offset,
+                          blueprint: controller,
+                        );
+                        controller.addNode(newNode);
+
+                        // Remove original from source blueprint.
+                        var sourceBp = droppedNode.blueprint;
+                        sourceBp?.nodes.remove(droppedNode);
+                        sourceBp?.updateCanvasSize();
+                        droppedNode.dispose();
+                      } catch (e) {
+                        dev.log(
+                          'Cross-blueprint transfer failed: $e',
+                          name: 'Blueprint',
+                        );
+                      }
                       return;
                     }
 

@@ -34,7 +34,7 @@ abstract class StateClass<T extends StatefulWidget> extends State<T> {
               value: _snapToGrid,
               onChanged: snapToGrid,
               activeTrackColor: Colors.blueAccent,
-              activeColor: Colors.blueAccent,
+              activeThumbColor: Colors.blueAccent,
             ),
           ),
           IconButton(

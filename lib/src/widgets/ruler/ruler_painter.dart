@@ -28,7 +28,7 @@ class RulerPainter extends CustomPainter {
     var cameraPosition = controller.blueprint!.cameraPosition;
 
     final Paint linePaint = Paint()
-      ..color = Colors.white.withOpacity(0.2)
+      ..color = controller.blueprint!.theme.rulerLineColor
       ..strokeWidth = 0.3;
 
     if (axis == Axis.horizontal) {
@@ -106,7 +106,7 @@ class RulerPainter extends CustomPainter {
 
   void paintText(Canvas canvas, Size size, String text, Offset offset) {
     var textStyle = TextStyle(
-      color: textColor ?? Colors.white30,
+      color: textColor ?? controller.blueprint!.theme.rulerTextColor,
       fontSize: 14,
     );
 

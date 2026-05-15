@@ -138,8 +138,8 @@ Pull requests are always welcome! 🦄
 - [x] Floating Node ✨
 - [x] Blueprint rulers 📏
 - [x] Add the ability to resize nodes (visually not programmatically).
-- [ ] Connecting Nodes using arrows (like the flow chart).
-- [ ] Blueprint (Export to / Import from) JSON, YAML, XML, etc.
-- [ ] Blueprint Themes/Templates.
-- [ ] https://github.com/salah-rashad/blueprint_system/issues/2
-- [ ] Add an option to make the `FloatingNode` responsive to screen size changes.
+- [x] Connecting Nodes using arrows (like the flow chart).
+- [x] Blueprint (Export to / Import from) JSON, YAML, XML, etc.
+- [x] Blueprint Themes/Templates.
+- [x] https://github.com/salah-rashad/blueprint_system/issues/2
+- [x] Add an option to make the `FloatingNode` responsive to screen size changes.

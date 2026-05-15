@@ -133,7 +133,7 @@ class _DevPageState extends State<DevPage> {
               value: _snapToGrid,
               onChanged: snapToGrid,
               activeTrackColor: Colors.blueAccent,
-              activeColor: Colors.blueAccent,
+              activeThumbColor: Colors.blueAccent,
             ),
           ),
           IconButton(

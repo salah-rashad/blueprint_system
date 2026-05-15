@@ -3,6 +3,7 @@
 import 'dart:math';
 import 'dart:ui';
 
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 import '../node/node_controller.dart';
@@ -27,16 +28,22 @@ class FloatingNodeController extends NodeController {
     required super.priority,
     required this.initialConstraint,
     required this.sizeFixed,
+    required this.responsiveToScreen,
   });
 
   final Constraint initialConstraint;
   final bool sizeFixed;
+  final bool responsiveToScreen;
 
   final Rx<Constraint> _constraint = Rx(Constraint.NONE);
   Constraint get constraint => _constraint.value;
   set constraint(Constraint value) => _constraint.value = value;
 
   Offset _screenPosition = Offset.zero;
+
+  /// Position ratios (0.0–1.0) for responsive layout.
+  double _positionRatioX = 0.0;
+  double _positionRatioY = 0.0;
 
   @override
   void onInit() {
@@ -49,6 +56,16 @@ class FloatingNodeController extends NodeController {
     super.onReady();
     updatePosition(initPosition - blueprint!.cameraPosition);
 
+    if (responsiveToScreen) {
+      final bpSize = blueprint!.size;
+      if (bpSize.width > 0 && bpSize.height > 0) {
+        _positionRatioX = initPosition.dx / bpSize.width;
+        _positionRatioY = initPosition.dy / bpSize.height;
+      }
+      // Listen for size changes to re-apply ratios.
+      ever(blueprint!.sizeRx, _onBlueprintSizeChanged);
+    }
+
     blueprint!.onInteractionUpdate + _onInteract;
   }
 
@@ -56,6 +73,15 @@ class FloatingNodeController extends NodeController {
   void onClose() {
     blueprint!.onInteractionUpdate - _onInteract;
     super.onClose();
+  }
+
+  void _onBlueprintSizeChanged(Size newSize) {
+    if (!responsiveToScreen) return;
+    final newPos = Offset(
+      newSize.width * _positionRatioX,
+      newSize.height * _positionRatioY,
+    );
+    updatePosition(newPos);
   }
 
   void updatePosition(Offset v) {
@@ -105,5 +131,14 @@ class FloatingNodeController extends NodeController {
     }
 
     position = Offset(x, y);
+
+    // Update position ratios if responsive.
+    if (responsiveToScreen) {
+      final bpSize = blueprint!.size;
+      if (bpSize.width > 0 && bpSize.height > 0) {
+        _positionRatioX = position.dx / bpSize.width;
+        _positionRatioY = position.dy / bpSize.height;
+      }
+    }
   }
 }

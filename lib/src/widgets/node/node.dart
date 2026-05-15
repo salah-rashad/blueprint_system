@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../blueprint_controller.dart';
+import '../connection/port_widget.dart';
 import '../fixed_node/fixed_node.dart';
 import '../size_handle/size_handle.dart';
 import 'node_controller.dart';
@@ -64,6 +65,20 @@ abstract class Node<T extends NodeController> extends GetWidget<T> {
     bool? focusEnabled,
   });
 
+  Map<String, dynamic> toJson() => {
+        'type': runtimeType.toString(),
+        'id': id,
+        'initPositionX': initPosition.dx,
+        'initPositionY': initPosition.dy,
+        'initSizeWidth': initSize.width,
+        'initSizeHeight': initSize.height,
+        'priority': priority,
+        'minSizeWidth': minSize.width,
+        'minSizeHeight': minSize.height,
+        'focusEnabled': focusEnabled,
+        'ports': controller.ports.map((p) => p.toJson()).toList(),
+      };
+
   @override
   @nonVirtual
   @override
@@ -92,7 +107,15 @@ abstract class Node<T extends NodeController> extends GetWidget<T> {
             top: controller.position.dy,
             child: SizedBox.fromSize(
               size: controller.size,
-              child: builder(controller),
+              child: Stack(
+                children: [
+                  builder(controller),
+                  ...controller.ports.map((port) => PortWidget(
+                    nodeController: controller,
+                    port: port,
+                  )),
+                ],
+              ),
             ),
           ),
         ],

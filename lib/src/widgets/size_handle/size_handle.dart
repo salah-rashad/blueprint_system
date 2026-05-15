@@ -2,8 +2,6 @@ import 'package:blueprint_system/blueprint_system.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Node;
 
-import 'size_handle_controller.dart';
-
 class SizeHandle extends StatelessWidget {
   final NodeController nodeController;
   final Alignment alignment;

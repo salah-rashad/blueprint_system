@@ -17,10 +17,15 @@ class FloatingNode extends Node<FloatingNodeController> {
     super.focusEnabled,
     this.constraint = Constraint.NONE,
     this.sizeFixed = true,
+    this.responsiveToScreen = false,
   });
 
   final Constraint constraint;
   final bool sizeFixed;
+
+  /// If true, the node's position will adjust proportionally when the
+  /// blueprint's canvas or screen size changes.
+  final bool responsiveToScreen;
 
   @override
   FloatingNodeController get init => FloatingNodeController(
@@ -32,6 +37,7 @@ class FloatingNode extends Node<FloatingNodeController> {
         initialConstraint: constraint,
         sizeFixed: sizeFixed,
         minSize: minSize,
+        responsiveToScreen: responsiveToScreen,
       );
 
   @override
@@ -44,6 +50,14 @@ class FloatingNode extends Node<FloatingNodeController> {
   }
 
   @override
+  Map<String, dynamic> toJson() => {
+        ...super.toJson(),
+        'constraint': constraint.name,
+        'sizeFixed': sizeFixed,
+        'responsiveToScreen': responsiveToScreen,
+      };
+
+  @override
   FloatingNode copyWith({
     String? id,
     NodeWidget<FloatingNodeController>? child,
@@ -54,6 +68,7 @@ class FloatingNode extends Node<FloatingNodeController> {
     bool? focusEnabled,
     Constraint? constraint,
     bool? sizeFixed,
+    bool? responsiveToScreen,
   }) {
     return FloatingNode(
       id: id ?? this.id,
@@ -65,6 +80,7 @@ class FloatingNode extends Node<FloatingNodeController> {
       constraint: constraint ?? this.constraint,
       sizeFixed: sizeFixed ?? this.sizeFixed,
       focusEnabled: focusEnabled ?? this.focusEnabled,
+      responsiveToScreen: responsiveToScreen ?? this.responsiveToScreen,
     );
   }
 }

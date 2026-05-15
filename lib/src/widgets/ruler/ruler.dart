@@ -47,4 +47,11 @@ class Ruler extends FloatingNode {
           ),
         );
       };
+
+  @override
+  Map<String, dynamic> toJson() => {
+        ...super.toJson(),
+        'axis': axis.name,
+        'options': options.toJson(),
+      };
 }
