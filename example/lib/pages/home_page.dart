@@ -1,4 +1,5 @@
 import 'package:example/pages/sandbox_example.dart';
+import 'package:example/pages/dev_page.dart';
 import 'package:flutter/material.dart';
 
 import 'draggable_node_example.dart';
@@ -48,6 +49,12 @@ class Home extends StatelessWidget {
                   "https://salah-rashad.github.io/blueprint_system_docs"),
               label: const Text("Explore Documentations"),
               icon: const Icon(Icons.open_in_new),
+            ),
+            const SizedBox(height: 64.0),
+            ElevatedButton.icon(
+              onPressed: () => goTo(context, const DevPage()),
+              label: const Text("Dev Page"),
+              icon: const Icon(Icons.handyman_rounded),
             ),
           ],
         ),

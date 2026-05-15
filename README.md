@@ -1,12 +1,15 @@
-<!-- PROJECT LOGO -->
-<br/>
 <div align="center">
   <a href="#">
-    <img src="assets\images\logo.png" alt="Logo" width="80" height="80">
+    <img src="https://user-images.githubusercontent.com/35843293/181866140-cf4dfec6-31fb-4bb3-822c-24b871eb32c2.png" alt="Logo" width="80" height="80"/>
   </a>
   <h1>Blueprint System</h1>
   <p>
     A Flutter library that creates blueprint widgets with <b>nodes</b> (child widgets) that may be added to them. These nodes can be <b>moved</b>, <b>resized</b>, and <b>modified</b>.
+  </p>
+  <p>
+  Made with ❤️ in Egypt 🇪🇬 by <a href="https://github.com/salah-rashad" target="_blank">Salah Rashad</a>
+  <br/>
+  #FreePalestine 🇵🇸
   </p>
   <h3>
     <a href="https://salah-rashad.github.io/blueprint_system_docs" target="_blank" style="color: white">
@@ -26,10 +29,13 @@
   </a>
   <br/><br/>
   <a href="https://pub.dev/packages/blueprint_system" target="_blank">
-    <img src="https://img.shields.io/pub/v/blueprint_system.svg?style=for-the-badge&label=pub&color=blue"/> 
+    <img src="https://img.shields.io/pub/v/blueprint_system.svg?style=for-the-badge&label=pub&logo=dart"/> 
   </a>
   <a href="https://github.com/salah-rashad/blueprint_system/blob/master/LICENSE" target="_blank">
     <img src="https://img.shields.io/github/license/salah-rashad/blueprint_system.svg?style=for-the-badge"/> 
+  </a>
+  <a href="https://github.com/salah-rashad/blueprint_system/stargazers" target="_blank">
+    <img src="https://img.shields.io/github/stars/salah-rashad/blueprint_system.svg?style=for-the-badge"/>
   </a>
   <br/><br/>
 </div>
@@ -40,7 +46,7 @@
 
 ### Installation
 
-- ### Method 1 (Recommended)
+- #### Method 1 (Recommended)
 
   run this line in your terminal:
 
@@ -48,13 +54,13 @@
   flutter pub add blueprint_system
   ```
 
-- ### Method 2
+- #### Method 2
 
   add this line to your `pubspec.yaml` dependencies:
 
   ```yaml title="pubspec.yaml"
   dependencies:
-    blueprint_system: 0.1.0
+    blueprint_system: 0.1.2
   ```
 
   then get packages, (Alternatively, your editor might support this)
@@ -131,9 +137,9 @@ Pull requests are always welcome! 🦄
 - [x] Draggable Node 👆↔️
 - [x] Floating Node ✨
 - [x] Blueprint rulers 📏
-- [ ] https://github.com/salah-rashad/blueprint_system/issues/2
-- [ ] Connecting Nodes using arrows (like the flow chart).
-- [ ] Implement Blueprint Export to JSON, YAML, XML, etc.
-- [ ] Add the ability to resize nodes (visually not programmatically).
-- [ ] Blueprint Themes/Templates.
-- [ ] Add an option to make the `FloatingNode` responsive to screen size changes.
+- [x] Add the ability to resize nodes (visually not programmatically).
+- [x] Connecting Nodes using arrows (like the flow chart).
+- [x] Blueprint (Export to / Import from) JSON, YAML, XML, etc.
+- [x] Blueprint Themes/Templates.
+- [x] https://github.com/salah-rashad/blueprint_system/issues/2
+- [x] Add an option to make the `FloatingNode` responsive to screen size changes.
